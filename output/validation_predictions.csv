@@ -1,0 +1,129 @@
+file,actual,predicted,correct
+VoiceRecordings\labelled\phrases\please turn on the light\05.pleaseturnonthelight.wav,phrases/please turn on the light,phrases/please turn on the light,True
+VoiceRecordings\labelled\phrases\i go to school\04.igotoschool.wav,phrases/i go to school,phrases/i go to school,True
+VoiceRecordings\labelled\words\apple\08.apple8.wav,words/apple,words/apple,True
+VoiceRecordings\labelled\words\car\car2.wav,words/car,words/car,True
+VoiceRecordings\labelled\words\fish\10.fish.wav,words/fish,words/fish,True
+VoiceRecordings\labelled\phrases\i want some cake\02.iwantsomecake.wav,phrases/i want some cake,phrases/i want some cake,True
+VoiceRecordings\labelled\words\food\01.food.wav,words/food,words/food,True
+VoiceRecordings\labelled\words\juice\05.juice.wav,words/juice,words/juice,True
+VoiceRecordings\labelled\phrases\i like my puppy\02.ilikemypuppy.wav,phrases/i like my puppy,phrases/i like my puppy,True
+VoiceRecordings\labelled\words\water\08.water.wav,words/water,words/water,True
+VoiceRecordings\labelled\phrases\im with my mom\10.iamwithmymom.wav,phrases/im with my mom,phrases/im with my mom,True
+VoiceRecordings\labelled\phrases\my name is alex\01.mynameisalex.wav,phrases/my name is alex,phrases/my name is alex,True
+VoiceRecordings\labelled\phrases\i clean my room\05.icleanmyroom.wav,phrases/i clean my room,phrases/i clean my room,True
+VoiceRecordings\labelled\words\door\01.door.wav,words/door,words/door,True
+VoiceRecordings\labelled\phrases\i wear a clean shirt\04.iwearacleanshirt.wav,phrases/i wear a clean shirt,phrases/i wear a clean shirt,True
+VoiceRecordings\labelled\words\baby\baby.wav,words/baby,words/baby,True
+VoiceRecordings\labelled\words\dad\03.dad.wav,words/dad,words/dad,True
+VoiceRecordings\labelled\phrases\i ride the school bus\10.iridetheschoolbus.wav,phrases/i ride the school bus,phrases/i like to eat fish,False
+VoiceRecordings\labelled\phrases\i have my pen\13.ihavemypen.wav,phrases/i have my pen,phrases/i have my pen,True
+VoiceRecordings\labelled\words\cake\cake9.wav,words/cake,words/cake,True
+VoiceRecordings\labelled\phrases\i read my book\05.i read my book.wav,phrases/i read my book,phrases/i read my book,True
+VoiceRecordings\labelled\phrases\i ate an apple\05.iateanapple.wav,phrases/i ate an apple,phrases/i ate an apple,True
+VoiceRecordings\labelled\words\bag\bag6.wav,words/bag,words/bag,True
+VoiceRecordings\labelled\phrases\im with my mom\03.iamwithmymom.wav,phrases/im with my mom,phrases/im with my mom,True
+VoiceRecordings\labelled\phrases\i need some paper\01.ineedsomepaper.wav,phrases/i need some paper,phrases/i need some paper,True
+VoiceRecordings\labelled\phrases\i see a cat\01.iseeacat.wav,phrases/i see a cat,phrases/i see a cat,True
+VoiceRecordings\labelled\phrases\i read my book\09.i read my book.wav,phrases/i read my book,phrases/i read my book,True
+VoiceRecordings\labelled\words\water\07.water.wav,words/water,words/water,True
+VoiceRecordings\labelled\phrases\i have my pen\09.ihavemypen.wav,phrases/i have my pen,phrases/i have my pen,True
+VoiceRecordings\labelled\phrases\i have some money\11.ihavesomemoney.wav,phrases/i have some money,phrases/i have some money,True
+VoiceRecordings\labelled\phrases\i drink some water\09.i drink some water.wav,phrases/i drink some water,phrases/i drink some water,True
+VoiceRecordings\labelled\phrases\i want some cold juice\06.iwantsomecoldjuice.wav,phrases/i want some cold juice,phrases/i want some cold juice,True
+VoiceRecordings\labelled\words\bag\bag17.wav,words/bag,words/bag,True
+VoiceRecordings\labelled\phrases\i like to eat fish\11.iliketoeatfish.wav,phrases/i like to eat fish,phrases/i like to eat fish,True
+VoiceRecordings\labelled\words\game\04.game.wav,words/game,words/cat,False
+VoiceRecordings\labelled\phrases\my name is alex\05.mynameisalex.wav,phrases/my name is alex,phrases/my name is alex,True
+VoiceRecordings\labelled\phrases\i clean my room\02.icleanmyroom.wav,phrases/i clean my room,phrases/i clean my room,True
+VoiceRecordings\labelled\words\dad\01.dad.wav,words/dad,words/dad,True
+VoiceRecordings\labelled\words\dog\05.dog.wav,words/dog,words/dog,True
+VoiceRecordings\labelled\phrases\i sit on the chair\01.isitonthechair.wav,phrases/i sit on the chair,phrases/i sit on the chair,True
+VoiceRecordings\labelled\words\cake\cake6.wav,words/cake,words/cake,True
+VoiceRecordings\labelled\words\juice\03.juice.wav,words/juice,words/juice,True
+VoiceRecordings\labelled\phrases\i have a ball\05.ihaveaball.wav,phrases/i have a ball,phrases/i have a ball,True
+VoiceRecordings\labelled\words\baby\baby10.wav,words/baby,words/baby,True
+VoiceRecordings\labelled\words\bag\bag11.wav,words/bag,words/bag,True
+VoiceRecordings\labelled\phrases\i want some cold juice\01.untitled.wav,phrases/i want some cold juice,phrases/i want some cold juice,True
+VoiceRecordings\labelled\phrases\i eat rice everyday\03.ieatriceeveryday.wav,phrases/i eat rice everyday,phrases/i eat rice everyday,True
+VoiceRecordings\labelled\phrases\my teacher is nice\04.myteacherisnice.wav,phrases/my teacher is nice,phrases/my teacher is nice,True
+VoiceRecordings\labelled\phrases\i sleep on my bed\01.untitled.wav,phrases/i sleep on my bed,phrases/i sleep on my bed,True
+VoiceRecordings\labelled\words\tea\02.tea.wav,words/tea,words/tea,True
+VoiceRecordings\labelled\words\fan\01.fan.wav,words/fan,words/fan,True
+VoiceRecordings\labelled\words\tea\10.tea.wav,words/tea,words/tea,True
+VoiceRecordings\labelled\words\baby\baby8.wav,words/baby,words/baby,True
+VoiceRecordings\labelled\words\fan\07.fan.wav,words/fan,words/fan,True
+VoiceRecordings\labelled\words\ball\ball5.wav,words/ball,words/ball,True
+VoiceRecordings\labelled\phrases\i see a cat\03.iseeacat.wav,phrases/i see a cat,phrases/i see a cat,True
+VoiceRecordings\labelled\words\ball\ball11.wav,words/ball,words/ball,True
+VoiceRecordings\labelled\phrases\i eat rice everyday\01.ieatriceeveryday.wav,phrases/i eat rice everyday,phrases/i eat rice everyday,True
+VoiceRecordings\labelled\phrases\i have my pen\01.ihavemypen.wav,phrases/i have my pen,phrases/i have my pen,True
+VoiceRecordings\labelled\words\dog\10.dog.wav,words/dog,words/dog,True
+VoiceRecordings\labelled\words\book\book6.wav,words/book,words/cat,False
+VoiceRecordings\labelled\phrases\i sit on the chair\10.isitonthechair.wav,phrases/i sit on the chair,phrases/i sit on the chair,True
+VoiceRecordings\labelled\phrases\i like to eat chicken\01.iliketoeatchicken.wav,phrases/i like to eat chicken,phrases/i like to eat chicken,True
+VoiceRecordings\labelled\phrases\please close the door\06.pleaseclosethedoor.wav,phrases/please close the door,phrases/please close the door,True
+VoiceRecordings\labelled\words\chair\chair1.wav,words/chair,words/chair,True
+VoiceRecordings\labelled\words\car\car6.wav,words/car,words/car,True
+VoiceRecordings\labelled\phrases\i ate an apple\08.iateanapple.wav,phrases/i ate an apple,phrases/i ate an apple,True
+VoiceRecordings\labelled\phrases\i sleep on my bed\02.isleeponmybed.wav,phrases/i sleep on my bed,phrases/i sleep on my bed,True
+VoiceRecordings\labelled\words\book\book9.wav,words/book,words/cat,False
+VoiceRecordings\labelled\words\girl\03.girl.wav,words/girl,words/girl,True
+VoiceRecordings\labelled\words\ball\ball4.wav,words/ball,words/ball,True
+VoiceRecordings\labelled\words\ball\ball16.wav,words/ball,words/ball,True
+VoiceRecordings\labelled\phrases\i drink hot tea\07.idrinkhotea.wav,phrases/i drink hot tea,phrases/i drink hot tea,True
+VoiceRecordings\labelled\words\cat\cat5.wav,words/cat,words/cat,True
+VoiceRecordings\labelled\words\cup\04.cup.wav,words/cup,words/cup,True
+VoiceRecordings\labelled\phrases\im with my dad\01.imwithmydad.wav,phrases/im with my dad,phrases/im with my dad,True
+VoiceRecordings\labelled\phrases\i want some pizza\11.iwantsomepizza.wav,phrases/i want some pizza,phrases/i want some pizza,True
+VoiceRecordings\labelled\phrases\i want some cake\05.iwantsomecake.wav,phrases/i want some cake,phrases/i want some cake,True
+VoiceRecordings\labelled\phrases\i need some paper\07.ineedsomepaper.wav,phrases/i need some paper,phrases/i need some paper,True
+VoiceRecordings\labelled\phrases\i found a green leaf\04.Ifoundagreenleaf.wav,phrases/i found a green leaf,phrases/i found a green leaf,True
+VoiceRecordings\labelled\words\cat\cat2.wav,words/cat,words/cat,True
+VoiceRecordings\labelled\words\baby\baby4.wav,words/baby,words/baby,True
+VoiceRecordings\labelled\phrases\i drink cold milk\03.idrinkcoldmilk.wav,phrases/i drink cold milk,phrases/i drink cold milk,True
+VoiceRecordings\labelled\phrases\i drink some water\10.i drink some water.wav,phrases/i drink some water,phrases/i drink some water,True
+VoiceRecordings\labelled\words\girl\10.girl.wav,words/girl,words/girl,True
+VoiceRecordings\labelled\phrases\please turn on the fan\02.pleaseturnonthefan.wav,phrases/please turn on the fan,phrases/please turn on the fan,True
+VoiceRecordings\labelled\words\chicken\08.chicken.wav,words/chicken,words/chicken,True
+VoiceRecordings\labelled\phrases\i wear a clean shirt\03.iwearacleanshirt.wav,phrases/i wear a clean shirt,phrases/i wear a clean shirt,True
+VoiceRecordings\labelled\words\chicken\05.chicken.wav,words/chicken,words/chicken,True
+VoiceRecordings\labelled\phrases\im with my dad\08.imwithmydad.wav,phrases/im with my dad,phrases/im with my dad,True
+VoiceRecordings\labelled\words\teacher\08.teacher.wav,words/teacher,words/teacher,True
+VoiceRecordings\labelled\words\go\01.go.wav,words/go,words/go,True
+VoiceRecordings\labelled\phrases\i ride the school bus\07.iridetheschoolbus.wav,phrases/i ride the school bus,phrases/i ride the school bus,True
+VoiceRecordings\labelled\phrases\i like to eat chicken\03.iliketoeatchicken.wav,phrases/i like to eat chicken,phrases/i like to eat chicken,True
+VoiceRecordings\labelled\words\chair\chair5.wav,words/chair,words/chair,True
+VoiceRecordings\labelled\phrases\i put on my shoe\11.iputonmyshoe.wav,phrases/i put on my shoe,phrases/i put on my shoe,True
+VoiceRecordings\labelled\phrases\i like to eat fish\07.iliketoeatfish.wav,phrases/i like to eat fish,phrases/i like to eat fish,True
+VoiceRecordings\labelled\words\key\02.key.wav,words/key,words/key,True
+VoiceRecordings\labelled\phrases\please close the door\08.pleaseclosethedoor.wav,phrases/please close the door,phrases/please close the door,True
+VoiceRecordings\labelled\phrases\i sit on the chair\04.isitonthechair.wav,phrases/i sit on the chair,phrases/i sit on the chair,True
+VoiceRecordings\labelled\words\apple\05.apple5.wav,words/apple,words/apple,True
+VoiceRecordings\labelled\words\fish\03.fish.wav,words/fish,words/fish,True
+VoiceRecordings\labelled\phrases\i drink hot tea\05.idrinkhotea.wav,phrases/i drink hot tea,phrases/i drink hot tea,True
+VoiceRecordings\labelled\phrases\please turn on the fan\10.pleaseturnonthefan.wav,phrases/please turn on the fan,phrases/please turn on the fan,True
+VoiceRecordings\labelled\phrases\i drink cold milk\10.idrinkcoldmilk.wav,phrases/i drink cold milk,phrases/i drink cold milk,True
+VoiceRecordings\labelled\phrases\please turn on the light\01.pleaseturnonthelight.wav,phrases/please turn on the light,phrases/please turn on the light,True
+VoiceRecordings\labelled\words\food\04.food.wav,words/food,words/food,True
+VoiceRecordings\labelled\phrases\i said hi to mama\09.untitled.wav,phrases/i said hi to mama,phrases/i said hi to mama,True
+VoiceRecordings\labelled\words\tub\09.tub.wav,words/tub,words/tub,True
+VoiceRecordings\labelled\words\go\04.go.wav,words/go,words/go,True
+VoiceRecordings\labelled\words\door\10.dog.wav,words/door,words/door,True
+VoiceRecordings\labelled\phrases\i want some pizza\12.iwantsomepizza.wav,phrases/i want some pizza,phrases/i want some pizza,True
+VoiceRecordings\labelled\words\bag\bag13.wav,words/bag,words/bag,True
+VoiceRecordings\labelled\phrases\please close the door\04.pleaseclosethedoor.wav,phrases/please close the door,phrases/please close the door,True
+VoiceRecordings\labelled\words\game\01.game.wav,words/game,words/game,True
+VoiceRecordings\labelled\words\key\03.key.wav,words/key,words/key,True
+VoiceRecordings\labelled\phrases\i have a ball\08.ihaveaball.wav,phrases/i have a ball,phrases/i have a ball,True
+VoiceRecordings\labelled\phrases\i like my puppy\08.ilikemypuppy.wav,phrases/i like my puppy,phrases/i like my puppy,True
+VoiceRecordings\labelled\words\teacher\04.teacher.wav,words/teacher,words/teacher,True
+VoiceRecordings\labelled\phrases\i go to school\08.igotoschool.wav,phrases/i go to school,phrases/i go to school,True
+VoiceRecordings\labelled\phrases\my teacher is nice\03.myteacherisnice.wav,phrases/my teacher is nice,phrases/my teacher is nice,True
+VoiceRecordings\labelled\phrases\i have some money\03.ihavesomemoney.wav,phrases/i have some money,phrases/i have some money,True
+VoiceRecordings\labelled\words\cup\03.cup.wav,words/cup,words/cup,True
+VoiceRecordings\labelled\phrases\i said hi to mama\04.isaidhitomama.wav,phrases/i said hi to mama,phrases/i said hi to mama,True
+VoiceRecordings\labelled\words\tub\08.tub.wav,words/tub,words/tub,True
+VoiceRecordings\labelled\phrases\i want some cold juice\11.iwantsomecoldjuice.wav,phrases/i want some cold juice,phrases/i want some cold juice,True
+VoiceRecordings\labelled\phrases\i put on my shoe\04.iputonmyshoe.wav,phrases/i put on my shoe,phrases/i put on my shoe,True
+VoiceRecordings\labelled\phrases\i found a green leaf\10.Ifoundagreenleaf.wav,phrases/i found a green leaf,phrases/i found a green leaf,True

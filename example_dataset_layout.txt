@@ -1,0 +1,17 @@
+VoiceRecordings/
+  labeled/
+    words/
+      hi/
+        audio1.mp3
+        audio2.mp3
+      hello/
+        audio1.mp3
+    phrases/
+      i love you/
+        audio1.mp3
+        audio2.mp3
+      i have you/
+        audio1.mp3
+
+Each label directory name is the exact expected transcription.
+Use --data path\to\VoiceRecordings or --data path\to\VoiceRecordings\labeled.
