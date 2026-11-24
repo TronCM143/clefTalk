@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#101d2d">
+  <title>ClefTalk · Assistive Communication</title>
+  <style>
+    :root { color-scheme: dark; font-family: system-ui,-apple-system,"Segoe UI",sans-serif;
+      background: #0b1724; color: #eaf4fa; --text:#eaf4fa; --muted:#9fb7c7;
+      --cyan:#58dbd1; --panel:#172b3d; --border:#30495b; }
+    * {box-sizing:border-box} body {margin:0; min-height:100dvh; background:radial-gradient(ellipse at 50% -12%,#20455a 0%,#101e2e 42%,#0b1724 100%)}
+    button,input {font:inherit} button {cursor:pointer} button:disabled {cursor:not-allowed;opacity:.55}
+    button:focus-visible,input:focus-visible,summary:focus-visible {outline:3px solid var(--cyan);outline-offset:3px}
+    .app {width:min(100%,760px);min-height:100dvh;margin:auto;padding:20px 20px 28px;display:flex;flex-direction:column;gap:20px}
+    .topbar,.brand,.system-state,.nav,.section-heading,.metric-row,.row-between {display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .brand {justify-content:flex-start;gap:10px}.brandmark {display:grid;place-items:center;width:42px;height:42px;
+      border:1px solid #4aa7ac;border-radius:14px;color:var(--cyan);font-size:24px;font-weight:800;background:#183c4c}
+    h1,h2,h3,p {margin:0} h1 {font-size:20px;letter-spacing:-.025em} .brand .caption {font-size:11px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+    .system-state {gap:8px;padding:8px 11px;border:1px solid var(--border);border-radius:99px;background:#152838;
+      font-size:12px;white-space:nowrap;color:#d4e6ef}
+    .dot {height:8px;width:8px;flex:none;border-radius:100%;background:#ffb66d}.dot.ready {background:#62e4ae;box-shadow:0 0 12px #62e4ae77}
+    .nav {padding:4px;background:#172c3c;border:1px solid #294458;border-radius:16px;gap:4px}
+    .nav button {border:0;background:none;color:#b1c7d4;border-radius:12px;flex:1;padding:13px 8px;font-weight:650}
+    .nav button[aria-selected="true"] {background:#2a5062;color:#fff;box-shadow:0 2px 8px #0002}
+    .pane {display:none}.pane.active {display:block}
+    .main-panel {border:1px solid #2b4b5d;background:linear-gradient(180deg,#1a3345df,#122536ea);padding:27px 20px;
+      border-radius:26px;text-align:center;box-shadow:0 16px 50px #0002;min-height:400px}
+    .eyebrow {font-size:12px;text-transform:uppercase;letter-spacing:.16em;color:#83cecf;font-weight:750}
+    .hero-title {font-size:clamp(26px,5.5vw,35px);letter-spacing:-.04em;margin:12px auto 8px;max-width:450px;line-height:1.14}
+    .subtitle {color:var(--muted);line-height:1.55;font-size:14px}
+    .record-zone {padding:28px 0 21px;position:relative;display:grid;place-items:center}
+    .record-halo {position:absolute;width:206px;height:206px;border-radius:50%;border:1px solid #31737e55;pointer-events:none}
+    .record-halo::before {content:"";position:absolute;inset:15px;border:1px solid #31737e55;border-radius:50%}
+    #recordButton {position:relative;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;
+      width:155px;height:155px;border-radius:50%;border:3px solid #82f6e9;background:linear-gradient(145deg,#6de9de,#259fa4);
+      color:#083b47;box-shadow:0 0 0 9px #3cc5c21a,0 12px 33px #0b070744;touch-action:none;user-select:none;
+      -webkit-user-select:none;-webkit-tap-highlight-color:transparent;transition:transform .18s,box-shadow .18s}
+    #recordButton:active {transform:scale(.97)}
+    #recordButton.recording {background:linear-gradient(145deg,#fb9e9e,#ed6579);border-color:#ffc3c8;color:#5c152b;
+      box-shadow:0 0 0 10px #f16b7e20,0 0 0 24px #f16b7e12;animation:heart 1.5s ease-in-out infinite}
+    #recordButton.processing {background:linear-gradient(145deg,#9dcae4,#76a1bd);border-color:#d6eaf7;color:#184159}
+    #recordButton svg {width:45px;height:45px;fill:currentColor} #recordButton span {font-size:12px;font-weight:800;letter-spacing:.04em}
+    @keyframes heart {50% {box-shadow:0 0 0 18px #f16b7e20,0 0 0 35px #f16b7e0a}}
+    .waveform {display:flex;align-items:center;justify-content:center;gap:4px;height:28px;margin:0 auto;opacity:.25}
+    .waveform i {height:6px;width:4px;border-radius:2px;background:#70dad9;transition:height .15s}
+    .is-recording .waveform {opacity:1}.is-recording .waveform i {animation:wave 1s ease-in-out infinite alternate}
+    .is-recording .waveform i:nth-child(2n) {animation-delay:-.35s}.is-recording .waveform i:nth-child(3n) {animation-delay:-.7s}
+    @keyframes wave {from {height:5px}to {height:25px}}
+    .timer {font-size:25px;font-variant-numeric:tabular-nums;font-weight:750;letter-spacing:.1em;margin-top:8px;min-height:30px}
+    .status-text {color:var(--muted);font-size:13px;min-height:20px;margin-top:5px}
+    .message {border-radius:12px;padding:11px 13px;margin-top:14px;font-size:13px;text-align:left;line-height:1.4}
+    .message.error {background:#602b3b66;border:1px solid #b26575;color:#ffbec6}
+    .message.info {background:#244a5d66;border:1px solid #478298;color:#c5e3ef}
+    .panel {background:#142839b8;border:1px solid #28485b;border-radius:22px;padding:19px 18px;margin-top:18px}
+    .section-heading {margin-bottom:15px} h2 {font-size:18px;letter-spacing:-.025em} .small {font-size:12px;color:var(--muted)}
+    .label {font-size:11px;color:#77cfce;text-transform:uppercase;letter-spacing:.12em;font-weight:780}
+    .prediction {font-size:clamp(23px,5vw,33px);font-weight:760;letter-spacing:-.035em;line-height:1.2;margin:12px 0}
+    .metric-row {flex-wrap:wrap;justify-content:flex-start}.chip {display:inline-flex;align-items:center;padding:5px 9px;border-radius:9px;
+      font-size:11px;font-weight:700;color:#b7e9e5;background:#22515b}
+    .separator {height:1px;background:#2d4858;margin:17px 0}.match {margin-top:15px}
+    .match-header {display:flex;justify-content:space-between;gap:10px;align-items:baseline;font-size:13px}
+    .match-header strong {font-size:14px}.match-header span {font-weight:750;color:#a9e9df;font-variant-numeric:tabular-nums}
+    .track {margin-top:8px;height:7px;border-radius:50px;background:#304b5c;overflow:hidden}
+    .fill {height:100%;width:0;background:linear-gradient(90deg,#309fa8,#77ebc8);border-radius:50px}
+    .muted {color:var(--muted)} .empty {padding:30px 12px;text-align:center;color:var(--muted);font-size:14px;line-height:1.6}
+    .history-heading {margin:7px 0 16px}.history-heading h2 {font-size:26px;margin:6px 0}
+    #historySearch {padding:13px 15px;width:100%;background:#122536;border:1px solid #3a5364;color:white;border-radius:12px;outline:none}
+    .group {background:#152a3b;border:1px solid #304858;border-radius:16px;overflow:hidden;margin-top:12px}
+    .group summary {cursor:pointer;list-style:none;padding:16px;display:flex;justify-content:space-between;gap:12px;align-items:center}
+    .group summary::-webkit-details-marker {display:none}
+    .group summary strong {display:block;font-size:15px;margin-bottom:4px;overflow-wrap:anywhere}
+    .group summary .meta {font-size:12px;color:var(--muted)}
+    .count {background:#27525c;color:#b8edec;padding:7px 10px;border-radius:9px;font-size:12px;white-space:nowrap}
+    .history-items {border-top:1px solid #304858;padding:4px 12px 12px}
+    .history-item {padding:12px 4px;border-bottom:1px solid #2d4554}
+    .history-item:last-child {border-bottom:none;padding-bottom:0}
+    .history-item-head {display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:12px;color:#c3d9e3;margin-bottom:9px}
+    .history-item audio {width:100%;height:37px;display:block;filter:grayscale(25%)}
+    .view-result {border:none;background:#285667;color:#bbf3ef;padding:7px 9px;border-radius:8px;font-size:12px}
+    .history-footer {font-size:12px;color:var(--muted);text-align:center;margin:18px 0}
+    .footer {margin-top:auto;color:#7996a7;font-size:11px;line-height:1.5;text-align:center;padding-top:6px}
+    [hidden] {display:none!important}
+    @media(min-width:600px) {.app {padding:29px 30px 36px}.main-panel {padding:32px}.record-zone {padding:39px 0 28px}}
+    @media(prefers-reduced-motion:reduce) {*,*::before,*::after {animation:none!important;transition:none!important}}
+    .topbar {flex-wrap:wrap}
+    .header-actions {display:flex;align-items:center;gap:8px;margin-left:auto}
+    #fullscreenBtn {display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:8px 11px;border:1px solid #4aa7ac;border-radius:12px;background:#183c4c;color:var(--cyan);font-size:12px;font-weight:750;touch-action:manipulation}
+    #fullscreenBtn svg {width:19px;height:19px;flex:none}
+    #fullscreenBtn .exit-icon {display:none}
+    #fullscreenBtn[aria-pressed="true"] .enter-icon {display:none}
+    #fullscreenBtn[aria-pressed="true"] .exit-icon {display:block}
+    #fullscreenNotice {margin:0;text-align:center}
+    html:fullscreen {background:#0b1724;overflow:auto}
+    html:fullscreen .app {min-height:100dvh}
+    @media(max-width:480px) {.topbar {gap:8px}.header-actions {margin-left:0;width:100%;justify-content:space-between}}
+  </style>
+</head>
+<body>
+  <div class="app" id="appRoot">
+    <header class="topbar">
+      <div class="brand"><div class="brandmark" aria-hidden="true">C</div><div><h1>ClefTalk</h1><p class="caption">Assistive communication</p></div></div>
+      <div class="header-actions">
+        <div class="system-state" title="Raspberry Pi model status"><span class="dot" id="modelDot"></span><span id="modelLabel">Checking model</span></div>
+        <button type="button" id="fullscreenBtn" aria-pressed="false" aria-label="Enter fullscreen" title="Enter fullscreen">
+          <svg class="enter-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3H3v6M15 3h6v6M3 15v6h6M21 15v6h-6"/></svg>
+          <svg class="exit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9h6V3M21 9h-6V3M9 21v-6H3M15 21v-6h6"/></svg>
+          <span id="fullscreenLabel">Fullscreen</span>
+        </button>
+      </div>
+    </header>
+    <p id="fullscreenNotice" class="message info" role="status" hidden></p>
+
+    <nav class="nav" aria-label="ClefTalk sections">
+      <button type="button" id="recordTab" aria-selected="true" aria-controls="recorderPane">Recorder</button>
+      <button type="button" id="historyTab" aria-selected="false" aria-controls="historyPane">History</button>
+    </nav>
+
+    <section class="pane active" id="recorderPane" aria-label="Voice recorder">
+      <div class="main-panel">
+        <div class="eyebrow">Speak to communicate</div>
+        <div class="hero-title" role="heading" aria-level="2">Your voice, understood.</div>
+        <p class="subtitle">Hold the microphone while speaking a word or phrase.<br>Release to recognize it using your ClefTalk model.</p>
+        <div class="record-zone">
+          <div class="record-halo" aria-hidden="true"></div>
+          <button id="recordButton" type="button" aria-label="Press and hold to record using the Raspberry Pi microphone" disabled>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v7a3 3 0 0 0 3 3Zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.93V22h2v-3.07A7 7 0 0 0 19 12h-2Z"/></svg>
+            <span id="recordButtonText">HOLD TO TALK</span>
+          </button>
+        </div>
+        <div class="waveform" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="timer" id="recordTimer" aria-live="off">00:00</div>
+        <p class="status-text" id="recordStatus" role="status">Checking Raspberry Pi microphone...</p>
+        <div class="message error" id="errorBanner" role="alert" hidden></div>
+      </div>
+
+      <section class="panel" aria-label="Prediction results">
+        <div class="section-heading"><h2>Recognized text</h2><span class="small" id="resultTime">Latest result</span></div>
+        <div id="emptyResult" class="empty">No recordings yet.<br>Your recognized words or phrases will appear here.</div>
+        <div id="resultBody" hidden>
+          <div class="label">Model prediction</div>
+          <div class="prediction" id="predictedText"></div>
+          <div class="metric-row"><span class="chip" id="predictedCategory"></span><span class="small" id="predictedDuration"></span></div>
+          <div class="separator"></div>
+          <div class="row-between"><strong style="font-size:14px">Closest matches</strong><span class="small">Relative score</span></div>
+          <div id="matches"></div>
+          <p class="small" style="line-height:1.5;margin-top:18px">Percentages compare model ranking scores across known words and phrases. They are <strong>not calibrated confidence, voice similarity measurements, or accuracy.</strong></p>
+          <div id="resultAudio" style="margin-top:13px"></div>
+        </div>
+      </section>
+    </section>
+
+    <section class="pane" id="historyPane" aria-label="Recording history">
+      <div class="history-heading"><div class="eyebrow">Your recordings</div><h2>History</h2><p class="subtitle">Past recordings grouped by the text recognized by your model.</p></div>
+      <input id="historySearch" type="search" autocomplete="off" placeholder="Search words or phrases" aria-label="Search recognized words or phrases">
+      <div id="historyGroups"></div>
+      <p id="historyFooter" class="history-footer"></p>
+    </section>
+
+    <footer class="footer">Runs locally on your Raspberry Pi · Microphone: Pi/ALSA · Audio stays on this device</footer>
+  </div>
+  <script>
+  (() => {
+    'use strict';
+    const $ = id => document.getElementById(id);
+
+    // Native browser fullscreen; requires a direct user tap in Chrome.
+    const fullscreenBtn = $('fullscreenBtn');
+    function syncFullscreen() {
+      const active = Boolean(document.fullscreenElement);
+      fullscreenBtn.setAttribute('aria-pressed', String(active));
+      fullscreenBtn.setAttribute('aria-label', active ? 'Exit fullscreen' : 'Enter fullscreen');
+      fullscreenBtn.title = active ? 'Exit fullscreen' : 'Enter fullscreen';
+      $('fullscreenLabel').textContent = active ? 'Exit fullscreen' : 'Fullscreen';
+    }
+    fullscreenBtn.addEventListener('click', async () => {
+      const notice = $('fullscreenNotice');
+      notice.hidden = true;
+      try {
+        if (document.fullscreenElement) {
+          await document.exitFullscreen();
+        } else if (document.documentElement.requestFullscreen && document.fullscreenEnabled !== false) {
+          await document.documentElement.requestFullscreen();
+        } else {
+          throw new Error('Fullscreen is not supported by this browser. Open ClefTalk in Chrome.');
+        }
+      } catch (err) {
+        notice.textContent = err.message || 'Could not change fullscreen mode.';
+        notice.hidden = false;
+      }
+      syncFullscreen();
+    });
+    document.addEventListener('fullscreenchange', syncFullscreen);
+    syncFullscreen();
+
+    let modelReady = false;
+    let press = null;
+    let busy = false;
+    let ticker = null;
+    let capTimer = null;
+    let startedAt = 0;
+    let historyData = {groups:[], recent:[], total:0, showing:0};
+
+    async function api(url, options={}) {
+      let response;
+      try { response = await fetch(url, {cache:'no-store', ...options}); }
+      catch { throw new Error('Cannot connect to the Raspberry Pi server. Check the USB Ethernet connection.'); }
+      let payload;
+      try { payload = await response.json(); } catch { payload = {}; }
+      if (!response.ok) throw new Error(payload.detail || `Request failed (${response.status})`);
+      return payload;
+    }
+    function message(text, type='error') {
+      const element=$('errorBanner'); element.textContent=text || '';
+      element.className=`message ${type}`; element.hidden=!text;
+    }
+    function setStatus(text) { $('recordStatus').textContent=text; }
+    function setButton(state) {
+      const btn=$('recordButton'); btn.classList.remove('recording','processing');
+      $('appRoot').classList.toggle('is-recording', state==='recording');
+      btn.disabled = !modelReady || (busy && (!press || press.released));
+      if (state==='recording') { btn.classList.add('recording'); $('recordButtonText').textContent='RECORDING'; }
+      else if(state==='processing') { btn.classList.add('processing'); $('recordButtonText').textContent='PROCESSING'; }
+      else { $('recordButtonText').textContent='HOLD TO TALK'; }
+    }
+    function updateClock() {
+      const seconds=Math.min(12, Math.floor((performance.now()-startedAt)/1000));
+      $('recordTimer').textContent=`${String(Math.floor(seconds/60)).padStart(2,'0')}:${String(seconds%60).padStart(2,'0')}`;
+    }
+    function stopClock() { clearInterval(ticker); clearTimeout(capTimer); ticker=null;capTimer=null; }
+    async function refreshStatus() {
+      try {
+        const data=await api('/api/status');
+        modelReady=data.model_ready;
+        $('modelDot').classList.toggle('ready',modelReady);
+        $('modelLabel').textContent=modelReady?'Model ready':'Model offline';
+        if (!modelReady) message(data.model_error || 'Model not found');
+        if (!press && !busy) setStatus(modelReady?'Ready · Press and hold to record':'Model unavailable · Check setup');
+      } catch(err) { modelReady=false;$('modelLabel').textContent='Disconnected';message(err.message);setStatus('Raspberry Pi unavailable'); }
+      setButton('idle');
+    }
+    function beginPress(e) {
+      if (busy || press || !modelReady) return;
+      if (e.type==='pointerdown' && e.button!==0) return;
+      if (e.cancelable) e.preventDefault();
+      if (e.type==='pointerdown') {try{$('recordButton').setPointerCapture(e.pointerId);}catch{}}
+      const current={released:false,startPromise:null,ending:false}; press=current; busy=true;
+      message(''); setStatus('Starting Raspberry Pi microphone...');
+      $('recordTimer').textContent='00:00'; setButton('processing');
+      current.startPromise=api('/api/record/start',{method:'POST'}).then(() => {
+        startedAt=performance.now();
+        if (!current.released) {
+          busy=false;setButton('recording');setStatus('Recording · Release to process');
+          ticker=setInterval(updateClock,150);
+          capTimer=setTimeout(() => {if(press===current) endPress();}, 12000);
+        }
+      }).catch(err=>{ if(press===current) {press=null;busy=false;stopClock();setButton('idle');setStatus('Ready · Try again');message(err.message);}throw err; });
+      // The rejection is consumed here so rapid release cannot cause an unhandled promise rejection.
+      current.startPromise.catch(()=>{});
+    }
+    async function endPress(e) {
+      if (!press) return;
+      if (e && e.cancelable) e.preventDefault();
+      const current=press;
+      if (current.ending) return;
+      current.ending=true;current.released=true;busy=true;
+      stopClock();setButton('processing');setStatus('Processing with your speech model...');
+      try {
+        await current.startPromise;
+        const result=await api('/api/record/stop',{method:'POST'});
+        renderResult(result);
+        setStatus('Recognition complete · Hold to record again');
+        $('recordTimer').textContent='00:00';
+        await loadHistory(false);
+      } catch(err) {
+        setStatus('Ready · Try again');
+        message(err.message);
+      } finally {
+        if (press===current) press=null;
+        busy=false;stopClock();setButton('idle');
+      }
+    }
+    function dateText(iso) {
+      try {return new Date(iso).toLocaleString(undefined,{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});} catch {return iso||'';}
+    }
+    function wordCategory(cat) {return cat==='words'?'Word':'Phrase';}
+    function renderResult(item) {
+      $('emptyResult').hidden=true;$('resultBody').hidden=false;
+      $('predictedText').textContent=item.text;
+      $('predictedCategory').textContent=wordCategory(item.category);
+      $('predictedDuration').textContent=`${Number(item.duration_seconds).toFixed(1)} sec recording`;
+      $('resultTime').textContent=dateText(item.created_at);
+      const container=$('matches');container.replaceChildren();
+      for (const match of item.candidates || []) {
+        const outer=document.createElement('div');outer.className='match';
+        const head=document.createElement('div');head.className='match-header';
+        const label=document.createElement('strong');label.textContent=match.text;
+        const pct=document.createElement('span');pct.textContent=`${Number(match.score_percent).toFixed(1)}%`;
+        head.append(label,pct);
+        const track=document.createElement('div');track.className='track';
+        const fill=document.createElement('div');fill.className='fill';fill.style.width=`${Math.max(0,Math.min(100,Number(match.score_percent)))}%`;
+        track.append(fill);outer.append(head,track);container.append(outer);
+      }
+      const audioDiv=$('resultAudio');audioDiv.replaceChildren();
+      if(item.audio_url) {
+        const label=document.createElement('div');label.className='small';label.textContent='Play the original recording';label.style.marginBottom='7px';
+        const player=document.createElement('audio');player.controls=true;player.preload='none';player.src=item.audio_url;player.style.width='100%';
+        audioDiv.append(label,player);
+      }
+    }
+    function showTab(tab) {
+      const isHistory=tab==='history';
+      $('recordTab').setAttribute('aria-selected',String(!isHistory));
+      $('historyTab').setAttribute('aria-selected',String(isHistory));
+      $('recorderPane').classList.toggle('active',!isHistory);
+      $('historyPane').classList.toggle('active',isHistory);
+      if (isHistory) loadHistory(true);
+    }
+    function drawHistory() {
+      const search=$('historySearch').value.trim().toLocaleLowerCase();
+      const target=$('historyGroups');target.replaceChildren();
+      let visible=0;
+      for(const group of historyData.groups) {
+        if(search && !group.text.toLocaleLowerCase().includes(search))continue;
+        visible++;
+        const details=document.createElement('details');details.className='group';
+        const summary=document.createElement('summary');
+        const title=document.createElement('div');
+        const strong=document.createElement('strong');strong.textContent=group.text;
+        const meta=document.createElement('div');meta.className='meta';meta.textContent=wordCategory(group.category);
+        title.append(strong,meta);
+        const count=document.createElement('span');count.className='count';count.textContent=`${group.count} recording${group.count===1?'':'s'}`;
+        summary.append(title,count);details.append(summary);
+        const items=document.createElement('div');items.className='history-items';
+        for(const item of group.recordings) {
+          const wrapper=document.createElement('div');wrapper.className='history-item';
+          const head=document.createElement('div');head.className='history-item-head';
+          const date=document.createElement('span');date.textContent=`${dateText(item.created_at)} · ${Number(item.duration_seconds).toFixed(1)}s`;
+          const view=document.createElement('button');view.type='button';view.className='view-result';view.textContent='View matches';
+          view.addEventListener('click',()=>{renderResult(item);showTab('record');window.scrollTo({top:0,behavior:'smooth'});});
+          head.append(date,view);
+          const audio=document.createElement('audio');audio.controls=true;audio.preload='none';audio.src=item.audio_url;
+          wrapper.append(head,audio);items.append(wrapper);
+        }
+        details.append(items);target.append(details);
+      }
+      if (!visible) {
+        const empty=document.createElement('div');empty.className='empty';
+        empty.textContent=search?'No recognized text matches your search.':'No past recordings found. Try making your first recording.';
+        target.append(empty);
+      }
+      $('historyFooter').textContent=`Showing ${historyData.showing} of ${historyData.total} saved recordings · ${visible} text group${visible===1?'':'s'}`;
+    }
+    async function loadHistory(showErrors) {
+      try {
+        historyData=await api('/api/history');drawHistory();
+        if($('emptyResult').hidden===false && historyData.recent.length) renderResult(historyData.recent[0]);
+      } catch(err) { if(showErrors) message(err.message); }
+    }
+    $('recordButton').addEventListener('pointerdown',beginPress);
+    $('recordButton').addEventListener('pointerup',endPress);
+    $('recordButton').addEventListener('pointercancel',endPress);
+    $('recordButton').addEventListener('lostpointercapture',()=>{if(press && !press.released)endPress();});
+    // Accessible keyboard hold-to-talk (Space / Enter).
+    $('recordButton').addEventListener('keydown',e=>{if((e.code==='Space'||e.code==='Enter')&&!e.repeat)beginPress(e);});
+    $('recordButton').addEventListener('keyup',e=>{if(e.code==='Space'||e.code==='Enter')endPress(e);});
+    window.addEventListener('blur',()=>{if(press)endPress();});
+    document.addEventListener('visibilitychange',()=>{if(document.hidden && press)endPress();});
+    $('recordTab').addEventListener('click',()=>showTab('record'));
+    $('historyTab').addEventListener('click',()=>showTab('history'));
+    $('historySearch').addEventListener('input',drawHistory);
+    refreshStatus();loadHistory(false);
+  })();
+  </script>
+</body>
+</html>
